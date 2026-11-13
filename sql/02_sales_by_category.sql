@@ -4,3 +4,15 @@
 
 -- Your query here:
 
+SELECT 
+    category, 
+    sub_category, 
+    SUM(sales) AS total_sales, 
+    SUM(profit) AS total_profit
+FROM
+    superstore_sales
+GROUP BY 
+    category, 
+    sub_category
+HAVING
+    SUM(profit) < 0

@@ -4,3 +4,13 @@
 
 -- Your query here:
 
+SELECT 
+    product_name, 
+    SUM(profit) AS total_profit, 
+    AVG(discount) AS average_discount
+FROM
+    superstore_sales
+GROUP BY
+    product_name
+HAVING
+    SUM(profit) < 0
