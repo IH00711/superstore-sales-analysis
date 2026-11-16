@@ -5,14 +5,69 @@
 
 -- Your query here:
 
-SELECT 
-    strftime('%Y', order_date) AS year, 
-    strftime('%m', order_date) AS month, 
-    SUM(sales) AS total_sales, 
+SELECT
+    strftime('%Y', order_date) AS year,
+    strftime('%m', order_date) AS month,
+    ROUND(SUM(sales), 2) AS total_sales,      -- CHANGED: added ROUND (was: SUM(sales) AS total_sales)
     COUNT(DISTINCT order_id) AS number_of_orders
 FROM
-    superstore_sales
+    orders                                    -- CHANGED: was superstore_sales (that table doesn't exist)
 GROUP BY
     year, month
 ORDER BY
-    year, month
+    year, month;                              -- CHANGED: added ; at the end (was: year, month)
+
+-- Result (48 rows, one per month):
+-- year  month  total_sales  number_of_orders
+-- 2014  01     14236.90     32
+-- 2014  02     4519.89      28
+-- 2014  03     55691.01     71
+-- 2014  04     28295.35     66
+-- 2014  05     23648.29     69
+-- 2014  06     34595.13     66
+-- 2014  07     33946.39     65
+-- 2014  08     27909.47     72
+-- 2014  09     81777.35     130
+-- 2014  10     31453.39     78
+-- 2014  11     78628.72     151
+-- 2014  12     69545.62     141
+-- 2015  01     18174.08     29
+-- 2015  02     11951.41     36
+-- 2015  03     38726.25     79
+-- 2015  04     34195.21     72
+-- 2015  05     30131.69     74
+-- 2015  06     24797.29     68
+-- 2015  07     28765.33     66
+-- 2015  08     36898.33     68
+-- 2015  09     64595.92     140
+-- 2015  10     31404.92     87
+-- 2015  11     75972.56     158
+-- 2015  12     74919.52     161
+-- 2016  01     18542.49     48
+-- 2016  02     22978.82     45
+-- 2016  03     51715.88     86
+-- 2016  04     38750.04     89
+-- 2016  05     56987.73     108
+-- 2016  06     40344.53     97
+-- 2016  07     39261.96     96
+-- 2016  08     31115.37     90
+-- 2016  09     73410.02     192
+-- 2016  10     59687.75     105
+-- 2016  11     79411.97     183
+-- 2016  12     96999.04     176
+-- 2017  01     43971.37     69
+-- 2017  02     20301.13     53
+-- 2017  03     58872.35     118
+-- 2017  04     36521.54     116
+-- 2017  05     44261.11     118
+-- 2017  06     52981.73     133
+-- 2017  07     45264.42     111
+-- 2017  08     63120.89     111
+-- 2017  09     87866.65     226
+-- 2017  10     77776.92     147
+-- 2017  11     118447.82    261
+-- 2017  12     83829.32     224
+
+-- Finding: Yearly sales grew from $484k (2014) to $733k (2017), about +51%, with a small dip in 2015.
+-- September, November and December are the busiest months every year (back-to-school + holidays).
+-- January and February are the slowest. November 2017 was the best month ever ($118k, 261 orders).
