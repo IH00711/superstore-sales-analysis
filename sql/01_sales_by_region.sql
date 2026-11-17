@@ -1,24 +1,15 @@
 -- Question: Which regions generate the most sales and profit?
--- Show: region, total sales, total profit, profit margin (%). Sort by total sales, highest first.
--- Concepts: SUM, GROUP BY, ORDER BY, ROUND
-
--- Your query here:
-
--- Worked example. Read the comments; use this as a template for files 02-06.
--- SQL runs the clauses in this order: FROM -> GROUP BY -> SELECT -> ORDER BY.
 
 SELECT
-    region,                                            -- the column we group by
-    ROUND(SUM(sales), 2)                    AS total_sales,       -- add up sales, round to 2 decimals
-    ROUND(SUM(profit), 2)                   AS total_profit,      -- add up profit
-    ROUND(SUM(profit) * 100.0 / SUM(sales), 1) AS profit_margin_pct  -- profit as % of sales
-FROM orders                                            -- the table (created by load_to_sqlite.py)
-GROUP BY region                                        -- one result row per region
-ORDER BY total_sales DESC;                             -- biggest first (ASC = smallest first)
+    region,
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(profit), 2) AS total_profit,
+    ROUND(SUM(profit) * 100.0 / SUM(sales), 1) AS profit_margin_pct
+FROM orders
+GROUP BY region
+ORDER BY total_sales DESC;
 
--- Why "* 100.0" and not "* 100"? The ".0" forces decimal maths.
--- Why SUM(profit) / SUM(sales) and not AVG(profit / sales)? The first weights big orders
--- more, which is the region's real margin. AVG would treat a $2 order the same as a $2,000 one.
+-- Margin uses SUM(profit) / SUM(sales) rather than AVG(profit / sales), so large orders carry more weight.
 
 -- Result:
 -- region   total_sales  total_profit  profit_margin_pct

@@ -1,14 +1,13 @@
 -- Question: What are the top 10 products by sales? And the top 10 by profit? Are they the same?
--- Concepts: GROUP BY, ORDER BY ... DESC, LIMIT
 
 -- Query A (top 10 by sales):
 
 SELECT
     product_name,
-    ROUND(SUM(sales), 2) AS total_sales,      -- CHANGED: added ROUND (was: SUM(sales) AS total_sales)
-    ROUND(SUM(profit), 2) AS total_profit     -- CHANGED: added this line so sales and profit can be compared (was: not there)
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(profit), 2) AS total_profit
 FROM
-    orders                                    -- CHANGED: was superstore_sales (that table doesn't exist)
+    orders
 GROUP BY
     product_name
 ORDER BY
@@ -19,10 +18,10 @@ LIMIT 10;
 
 SELECT
     product_name,
-    ROUND(SUM(sales), 2) AS total_sales,      -- CHANGED: added this line so sales and profit can be compared (was: not there)
-    ROUND(SUM(profit), 2) AS total_profit     -- CHANGED: was SUM(sales) AS total_profit (it added up sales, not profit)
+    ROUND(SUM(sales), 2) AS total_sales,
+    ROUND(SUM(profit), 2) AS total_profit
 FROM
-    orders                                    -- CHANGED: was superstore_profit (that table doesn't exist)
+    orders
 GROUP BY
     product_name
 ORDER BY

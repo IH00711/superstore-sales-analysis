@@ -1,25 +1,15 @@
 -- Question 1: Rank products by sales WITHIN each category (top 3 per category).
--- Concepts: RANK() OVER (PARTITION BY ... ORDER BY ...), subquery or CTE (WITH ...)
 
--- Your query here:
-
--- Step 1 (the CTE): a temporary table called "ranked" that exists only while this query runs.
--- It holds every product, its total sales, and its rank inside its own category.
 WITH ranked AS (
     SELECT
         category,
         product_name,
         ROUND(SUM(sales), 2) AS total_sales,
-        -- RANK() numbers the rows 1, 2, 3, ...
-        -- PARTITION BY category -> restart the numbering at 1 for each category
-        -- ORDER BY SUM(sales) DESC -> the biggest seller in each category gets rank 1
         RANK() OVER (PARTITION BY category ORDER BY SUM(sales) DESC) AS sales_rank
     FROM orders
     GROUP BY category, product_name
 )
--- Step 2: keep only the top 3 of each category.
--- We need the CTE because WHERE runs before window functions, so you can't write
--- "WHERE sales_rank <= 3" in the same query that creates sales_rank.
+-- Filter in an outer query: WHERE runs before window functions, so sales_rank can't be filtered in the CTE itself.
 SELECT *
 FROM ranked
 WHERE sales_rank <= 3
@@ -40,13 +30,8 @@ ORDER BY category, sales_rank;
 -- Finding: The Canon copier ($61.6k) sells almost 3x more than any other product.
 -- Office Supplies' top sellers are all binding machines.
 
-
 -- Question 2: Show monthly sales with a running (cumulative) total.
--- Concepts: SUM(...) OVER (ORDER BY ...)
 
--- Your query here:
-
--- Step 1: total sales per month. '%Y-%m' gives "2014-01", so year and month stay in one column.
 WITH monthly AS (
     SELECT
         strftime('%Y-%m', order_date) AS month,
@@ -54,9 +39,6 @@ WITH monthly AS (
     FROM orders
     GROUP BY month
 )
--- Step 2: the running total.
--- SUM(...) OVER (ORDER BY month) adds up this month and every month before it.
--- Unlike GROUP BY, a window function keeps every row: 48 months in, 48 rows out.
 SELECT
     month,
     ROUND(monthly_sales, 2) AS monthly_sales,

@@ -1,21 +1,17 @@
 -- Question: Which products lose money overall? Does discount have something to do with it?
--- Show: product_name, total profit, average discount. Only products with negative total profit.
--- Concepts: HAVING, AVG, CASE WHEN (bonus: group rows into discount bands like 0%, 1-20%, 21-40%, 40%+)
-
--- Your query here:
 
 SELECT
     product_name,
-    ROUND(SUM(profit), 2) AS total_profit,        -- CHANGED: added ROUND (was: SUM(profit) AS total_profit)
-    ROUND(AVG(discount), 2) AS average_discount   -- CHANGED: added ROUND (was: AVG(discount) AS average_discount)
+    ROUND(SUM(profit), 2) AS total_profit,
+    ROUND(AVG(discount), 2) AS average_discount
 FROM
-    orders                                        -- CHANGED: was superstore_sales (that table doesn't exist)
+    orders
 GROUP BY
     product_name
 HAVING
     SUM(profit) < 0
-ORDER BY                                          -- CHANGED: added ORDER BY so the worst losses come first (was: not there)
-    total_profit ASC;                             -- CHANGED: added ; at the end (was: SUM(profit) < 0 with no ;)
+ORDER BY
+    total_profit ASC;
 
 -- Result (302 rows; worst 10 shown):
 -- product_name                                                       total_profit  average_discount
