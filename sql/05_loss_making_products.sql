@@ -1,4 +1,4 @@
--- Question: Which products lose money overall? Does discount have something to do with it?
+-- Product that loses money and their average discount
 
 SELECT
     product_name,
@@ -13,7 +13,6 @@ HAVING
 ORDER BY
     total_profit ASC;
 
--- Result (302 rows; worst 10 shown):
 -- product_name                                                       total_profit  average_discount
 -- Cubify CubeX 3D Printer Double Head Print                          -8879.97      0.53
 -- Lexmark MX611dhe Monochrome Laser Printer                          -4589.97      0.40

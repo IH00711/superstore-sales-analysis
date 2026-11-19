@@ -1,6 +1,4 @@
--- Question: How do sales and profit break down by category and sub-category? Which sub-categories lose money?
-
--- Query A: full breakdown, most profitable first
+-- Profitable
 SELECT
     category,
     sub_category,
@@ -14,7 +12,7 @@ GROUP BY
 ORDER BY
     total_profit DESC;
 
--- Query B: only the sub-categories that lose money overall
+-- Losses
 SELECT
     category,
     sub_category,
@@ -55,7 +53,3 @@ ORDER BY
 -- Furniture        Tables        206965.53    -17725.48
 -- Furniture        Bookcases     114880.00    -3472.56
 -- Office Supplies  Supplies      46673.54     -1189.10
-
--- Finding: Copiers are the most profitable sub-category ($55.6k profit on $150k sales).
--- 3 sub-categories lose money. Tables is the worst: about $207k in sales but a $17.7k loss.
--- Furniture has 2 of the 3 losers, so its pricing or discounts are worth a closer look.

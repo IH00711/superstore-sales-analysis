@@ -1,4 +1,4 @@
--- Question: How have sales changed by year and by month? Is there a busy season?
+-- Changes in sales by year and month
 
 SELECT
     strftime('%Y', order_date) AS year,
@@ -12,7 +12,7 @@ GROUP BY
 ORDER BY
     year, month;
 
--- Result (48 rows, one per month):
+
 -- year  month  total_sales  number_of_orders
 -- 2014  01     14236.90     32
 -- 2014  02     4519.89      28

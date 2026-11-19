@@ -1,58 +1,37 @@
-# Project 1 Plan: Sales & Customer Insights Analysis
+# Project plan
 
-**Timeline:** Oct 16 → Nov 16, 2026 · ~2–3 hrs/week
+Started mid-October 2026. About 2-3 hours a week.
 
-Tick boxes by changing `[ ]` to `[x]`. Commit after each step.
+## Setup
+- [x] Create the repo and folders, and set up the Python environment
+- [x] Download the Superstore CSV from Kaggle into data/raw/
+- [x] Load it into SQLite (scripts/load_to_sqlite.py)
 
----
+## Week 1: SQL
+- [x] Data dictionary (sql/00_data_dictionary.md)
+- [x] 01 sales by region
+- [x] 02 sales by category and sub-category
+- [x] 03 sales by year and month
+- [x] 04 top products by sales vs. by profit
+- [x] 05 products that lose money
+- [x] 06 window functions (rank within category, running total)
 
-## Step 0 · Setup (before Oct 16)
+## Week 2: Cleaning and KPIs (notebook 01)
+- [x] Load the CSV and check shape, types, missing values and duplicates
+- [x] Convert the dates, and add year, month, ship days and profit margin
+- [x] KPIs: sales, profit, margin, orders, AOV (AOV = sales / unique order IDs, since one order can have several rows)
+- [x] Charts
+- [x] Save the cleaned CSV
 
-- [x] GitHub repo created
-- [x] Folder structure, Python environment, VS Code extensions
-- [ ] Download `Sample - Superstore.csv` from [Kaggle](https://www.kaggle.com/datasets/vivek468/superstore-dataset-final) → put it in `data/raw/`
-- [ ] Run `python scripts/load_to_sqlite.py` → creates `data/superstore.db`
-- [ ] First commit + push
+## Week 3: RFM segmentation (notebook 02)
+- [x] Recency, frequency and monetary value for each customer
+- [x] Score each 1-5 and name the segments
+- [x] Find what share of sales and profit the top 10% of customers bring in
+- [x] Save customer_segments.csv
 
-## Week 1 · Understand the data + SQL
-
-- [ ] Write a one-line description of every column (add it to `sql/00_data_dictionary.md`)
-- [ ] `sql/01_sales_by_region.sql` — sales & profit by region
-- [ ] `sql/02_sales_by_category.sql` — sales & profit by category / sub-category
-- [ ] `sql/03_sales_over_time.sql` — sales by year and month
-- [ ] `sql/04_top_products.sql` — top 10 products by sales vs. by profit
-- [ ] `sql/05_loss_making_products.sql` — products losing money
-- [ ] `sql/06_window_functions.sql` — rank products within category, running totals
-- **Deliverable:** SQL queries
-
-## Week 2 · Clean the data + calculate KPIs (Python)
-
-Notebook: `notebooks/01_cleaning_and_kpis.ipynb`
-
-- [ ] Load the CSV (hint: `encoding="latin-1"`)
-- [ ] Check shape, dtypes, missing values, duplicates
-- [ ] Convert dates; add year, month, ship days, profit margin
-- [ ] KPIs: total sales, total profit, profit margin, # orders, average order value, top products
-  - ⚠️ One order can have many rows → AOV = total sales ÷ **unique** Order IDs
-- [ ] Charts: monthly sales trend, sales by category/region
-- [ ] Save `data/processed/superstore_clean.csv`
-- **Deliverable:** cleaned dataset, KPIs
-
-## Week 3 · Customer segmentation (RFM)
-
-Notebook: `notebooks/02_rfm_segmentation.ipynb`
-
-- [ ] For each customer: Recency (days since last order), Frequency (unique orders), Monetary (total sales)
-- [ ] Score each 1–5 and combine into segments (Champions, Loyal, At Risk, Lost, …)
-- [ ] Identify the top 10% of customers — what share of sales/profit do they bring in?
-- [ ] Save `data/processed/customer_segments.csv`
-- **Deliverable:** customer segments
-
-## Week 4 · Excel, dashboard, executive summary
-
-- [ ] `excel/superstore_summary.xlsx` — KPI sheet + pivot tables (e.g. region × category)
-- [ ] Dashboard in Tableau Public (Power BI Desktop doesn't run on Mac) → save screenshots in `dashboard/`
-- [ ] `reports/executive_summary.md` — 1 page, 3 recommendations
-- [ ] Fill in the README: key findings, recommendations, dashboard screenshot
-- [ ] Make the repo public when you're proud of it
-- **Deliverable:** dashboard + summary
+## Week 4: Wrap-up
+- [x] Executive summary
+- [x] README
+- [ ] Excel summary with pivot tables (maybe)
+- [ ] Tableau Public dashboard (maybe)
+- [ ] Make the repo public

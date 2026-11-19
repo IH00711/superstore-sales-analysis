@@ -1,4 +1,4 @@
--- Question: Which regions generate the most sales and profit?
+-- Sales and profit margin
 
 SELECT
     region,
@@ -9,8 +9,6 @@ FROM orders
 GROUP BY region
 ORDER BY total_sales DESC;
 
--- Margin uses SUM(profit) / SUM(sales) rather than AVG(profit / sales), so large orders carry more weight.
-
 -- Result:
 -- region   total_sales  total_profit  profit_margin_pct
 -- West     725457.82    108418.45     14.9
@@ -18,6 +16,6 @@ ORDER BY total_sales DESC;
 -- Central  501239.89    39706.36      7.9
 -- South    391721.91    46749.43      11.9
 
--- Finding: West leads in both sales and margin (14.9%). Central is #3 in sales
--- but has the weakest margin (7.9%), so it is worth investigating (discounts? product mix?).
+-- West leads in both sales and margin (14.9%). Central is #3 in sales, 
+--but has the weakest margin (7.9%), so it is worth investigating (discounts? product mix?).
 

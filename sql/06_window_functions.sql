@@ -1,4 +1,4 @@
--- Question 1: Rank products by sales WITHIN each category (top 3 per category).
+-- Products by sales within categories
 
 WITH ranked AS (
     SELECT
@@ -9,13 +9,11 @@ WITH ranked AS (
     FROM orders
     GROUP BY category, product_name
 )
--- Filter in an outer query: WHERE runs before window functions, so sales_rank can't be filtered in the CTE itself.
 SELECT *
 FROM ranked
 WHERE sales_rank <= 3
 ORDER BY category, sales_rank;
 
--- Result:
 -- category         product_name                                          total_sales  sales_rank
 -- Furniture        HON 5400 Series Task Chairs for Big and Tall          21870.58     1
 -- Furniture        Riverside Palais Royal Lawyers Bookcase               15610.97     2
@@ -30,7 +28,7 @@ ORDER BY category, sales_rank;
 -- Finding: The Canon copier ($61.6k) sells almost 3x more than any other product.
 -- Office Supplies' top sellers are all binding machines.
 
--- Question 2: Show monthly sales with a running (cumulative) total.
+-- Monthly sales and total sales
 
 WITH monthly AS (
     SELECT
@@ -46,7 +44,6 @@ SELECT
 FROM monthly
 ORDER BY month;
 
--- Result (first 3 and last row of 48):
 -- month    monthly_sales  running_total
 -- 2014-01  14236.90       14236.90
 -- 2014-02  4519.89        18756.79      (= 14236.90 + 4519.89)

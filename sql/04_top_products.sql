@@ -1,6 +1,4 @@
--- Question: What are the top 10 products by sales? And the top 10 by profit? Are they the same?
-
--- Query A (top 10 by sales):
+-- Top 10 by sales
 
 SELECT
     product_name,
@@ -14,7 +12,7 @@ ORDER BY
     total_sales DESC
 LIMIT 10;
 
--- Query B (top 10 by profit):
+-- Top 10 by profit
 
 SELECT
     product_name,
@@ -54,6 +52,6 @@ LIMIT 10;
 -- Ibico EPK-21 Electric Binding System                      15875.92     3345.28
 -- Zebra ZM400 Thermal Label Printer                         6965.70      3343.54
 
--- Finding: The lists are NOT the same. Only 4 products are in both top 10s.
+-- The lists are not the same. Only 4 products are in both top 10s.
 -- 3 of the top 10 best sellers actually lose money (Cisco TelePresence, GBC DocuBind P400,
 -- Letter Opener), and the HON chair breaks even. High sales do not mean high profit.
